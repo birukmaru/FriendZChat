@@ -2,6 +2,14 @@
 ///
 /// One central declaration of routes + guards so screens can stay focused
 /// on UI rather than navigation plumbing.
+///
+/// The router is exposed via [appRouterProvider], a Riverpod Provider. It
+/// is created **once** for the lifetime of the app — rebuilding it on
+/// every prefs change (theme, language) would reset the navigation back
+/// to the splash because GoRouter navigates a freshly built router to
+/// its `initialLocation`. The Provider body uses `ref.read` and
+/// `ref.listen` (legal inside a Provider) instead of `ref.watch`, so it
+/// never re-evaluates after first build.
 library;
 
 import 'package:flutter/material.dart';
@@ -33,15 +41,19 @@ import 'package:friendzchat/presentation/screens/settings/settings_terms_screen.
 import 'package:friendzchat/presentation/screens/settings/settings_screen.dart';
 import 'package:friendzchat/presentation/screens/splash/splash_screen.dart';
 
-/// Builds the app's [GoRouter].  Requires [ref] so it can subscribe to
-/// auth/onboarding state.
-GoRouter buildRouter(WidgetRef ref) {
+/// The app's single [GoRouter] instance. Created once and kept alive for
+/// the lifetime of the [ProviderScope]. Watch this in `app.dart` instead
+/// of constructing a fresh router on every build.
+final appRouterProvider = Provider<GoRouter>((ref) {
   final notifier = RouterRefreshNotifier(ref);
 
-  return GoRouter(
+  final router = GoRouter(
     initialLocation: AppRoutes.splash,
     refreshListenable: notifier,
     redirect: (context, state) {
+      // Use ref.read here — we don't want the Provider body to depend on
+      // these providers and re-run; we only need their *current* value
+      // each time the redirect is evaluated.
       final auth = ref.read(authStateProvider);
       final prefs = ref.read(prefsStateProvider);
       final loc = state.matchedLocation;
@@ -178,15 +190,24 @@ GoRouter buildRouter(WidgetRef ref) {
       ),
     ),
   );
-}
 
-/// Simple bridge that re-runs router guards when Riverpod state changes.
+  // Ensure the router and its notifier are disposed when the provider
+  // scope tears down (i.e. when the whole app shuts down).
+  ref.onDispose(router.dispose);
+
+  return router;
+});
+
+/// Bridge that re-evaluates the router's redirect whenever auth or
+/// onboarding state changes.
+///
+/// [Ref] is the Riverpod base class accepted by both [Provider] bodies
+/// and [Notifier] implementations, so the same notifier works whether
+/// it's instantiated from a Provider body (legal) or from a WidgetRef's
+/// build method (illegal — that's the bug we're fixing).
 class RouterRefreshNotifier extends ChangeNotifier {
-  RouterRefreshNotifier(this._ref) {
-    _ref.listen(authStateProvider, (_, __) => notifyListeners());
-    _ref.listen(prefsStateProvider, (_, __) => notifyListeners());
+  RouterRefreshNotifier(Ref ref) {
+    ref.listen(authStateProvider, (_, __) => notifyListeners());
+    ref.listen(prefsStateProvider, (_, __) => notifyListeners());
   }
-
-  // ignore: unused_field
-  final WidgetRef _ref;
 }

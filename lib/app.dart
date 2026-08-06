@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import 'package:friendzchat/core/router/app_router.dart';
 import 'package:friendzchat/domain/entities/app_settings.dart';
@@ -24,22 +23,15 @@ class FriendZChatApp extends ConsumerStatefulWidget {
 }
 
 class _FriendZChatAppState extends ConsumerState<FriendZChatApp> {
-  // Cache the router so it isn't recreated on every prefs change.
-  // Without this, switching language or theme rebuilds the GoRouter
-  // and MaterialApp.router navigates back to the splash because the
-  // new router's initialLocation is `/`.
-  late final GoRouter _router;
-
-  @override
-  void initState() {
-    super.initState();
-    _router = buildRouter(ref);
-  }
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     final prefs = ref.watch(prefsStateProvider);
+
+    // The router is created once by `appRouterProvider` and survives
+    // every rebuild — so toggling language, theme, or notifications
+    // doesn't kick the user back to the splash.
+    final router = ref.watch(appRouterProvider);
 
     // Swap in the Amharic text theme when Amharic is the active language,
     // so Ge'ez script renders via Noto Sans Ethiopic. Inter stays for
@@ -69,7 +61,7 @@ class _FriendZChatAppState extends ConsumerState<FriendZChatApp> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      routerConfig: _router,
+      routerConfig: router,
       builder: (context, child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(
