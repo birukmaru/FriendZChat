@@ -87,8 +87,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     return Scaffold(
       // No AppBar — /register is an entry point reached via context.go()
       // (after onboarding or logout), so there's no stack to pop and no
-      // page title to display. The "I already have an account" link below
-      // covers the path to /login.
+      // page title to display.
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(
@@ -207,13 +206,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   const SizedBox(height: AppSpacing.l),
                   _InlineError(message: state.error!),
                 ],
-                const SizedBox(height: AppSpacing.l),
-                Center(
-                  child: TextButton(
-                    onPressed: () => context.push(AppRoutes.login),
-                    child: const Text('I already have an account'),
-                  ),
-                ),
               ],
             ),
           ),
