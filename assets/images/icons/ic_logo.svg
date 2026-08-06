@@ -1,12 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#0E7C7B"/>
       <stop offset="100%" stop-color="#17BEBB"/>
     </linearGradient>
+    <linearGradient id="bubble" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E6FFFA"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.18"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="512" height="512" rx="112" fill="url(#g)"/>
-  <path d="M256 96 L256 144 C320 144 368 192 368 256 C368 320 320 368 256 368 C192 368 144 320 144 256 C144 224 156 196 176 176 L208 208 C196 220 192 236 192 256 C192 296 220 324 256 324 C292 324 320 296 320 256 C320 220 296 196 256 192 L256 96 Z"
-        fill="#FFFFFF"/>
-  <circle cx="256" cy="416" r="20" fill="#FFFFFF"/>
+
+  <!-- Rounded gradient background -->
+  <rect width="512" height="512" rx="112" ry="112" fill="url(#bg)"/>
+
+  <!-- Subtle inner highlight (top-left glow) -->
+  <circle cx="80" cy="80" r="180" fill="#FFFFFF" fill-opacity="0.08"/>
+
+  <!-- Main speech bubble: rounded rectangle body with tail at bottom-left -->
+  <path d="M 108 144
+           Q 108 108 144 108
+           L 368 108
+           Q 404 108 404 144
+           L 404 296
+           Q 404 332 368 332
+           L 228 332
+           L 168 384
+           L 184 332
+           L 144 332
+           Q 108 332 108 296
+           Z"
+        fill="url(#bubble)"
+        filter="url(#shadow)"/>
+
+  <!-- Three audio-signal bars inside the bubble (voice/chat indicator) -->
+  <rect x="172" y="200" width="22" height="64" rx="11" fill="#0E7C7B"/>
+  <rect x="218" y="172" width="22" height="120" rx="11" fill="#0E7C7B"/>
+  <rect x="264" y="200" width="22" height="64" rx="11" fill="#0E7C7B"/>
+  <rect x="310" y="220" width="22" height="28" rx="11" fill="#0E7C7B" opacity="0.55"/>
+
+  <!-- Small phone-handset dot (top-right corner accent — calls) -->
+  <circle cx="404" cy="108" r="36" fill="#0E7C7B"/>
+  <path d="M 392 96
+           Q 388 92 384 96
+           L 380 100
+           Q 376 104 380 110
+           L 386 116
+           Q 384 122 380 126
+           L 384 130
+           Q 388 134 392 130
+           L 396 126
+           Q 408 116 408 110
+           Q 408 100 396 96
+           Z"
+        fill="#FFFFFF"
+        transform="translate(0, -4)"/>
 </svg>

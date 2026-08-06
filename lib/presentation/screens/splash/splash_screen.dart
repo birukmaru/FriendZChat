@@ -125,13 +125,23 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                     ),
                   ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                   const SizedBox(height: AppSpacing.huge),
-                  SizedBox(
-                    width: 28,
-                    height: 28,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2.5,
-                      color: Colors.white.withValues(alpha: 0.7),
-                    ),
+                  // Three pulsing dots — a chat "typing" indicator that
+                  // reinforces the FriendZChat identity (this is a chat
+                  // app, after all) instead of a generic spinner.
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: List.generate(3, (i) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppSpacing.xs,
+                        ),
+                        child: _PulseDot(
+                          color: Colors.white.withValues(alpha: 0.85),
+                          delayMs: 900 + i * 160,
+                        ),
+                      );
+                    }),
                   ).animate().fadeIn(delay: const Duration(milliseconds: 900)),
                 ],
               ),
@@ -163,5 +173,46 @@ class _Glow extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+/// A single chat "typing" dot that pulses in size and opacity.
+class _PulseDot extends StatelessWidget {
+  const _PulseDot({required this.color, required this.delayMs});
+
+  final Color color;
+  final int delayMs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+          width: 10,
+          height: 10,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
+        )
+        .animate(onPlay: (c) => c.repeat())
+        .scaleXY(
+          begin: 0.6,
+          end: 1.0,
+          duration: const Duration(milliseconds: 700),
+          delay: Duration(milliseconds: delayMs),
+          curve: Curves.easeInOut,
+        )
+        .then()
+        .scaleXY(
+          begin: 1.0,
+          end: 0.6,
+          duration: const Duration(milliseconds: 700),
+          curve: Curves.easeInOut,
+        )
+        .fade(
+          begin: 0.4,
+          end: 1.0,
+          duration: const Duration(milliseconds: 1400),
+          delay: Duration(milliseconds: delayMs),
+        );
   }
 }
