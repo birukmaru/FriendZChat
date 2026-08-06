@@ -86,10 +86,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     final state = ref.watch(authStateProvider);
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => context.pop(),
-        ),
+        // No back button — /register is an entry point reached via
+        // context.go() (after onboarding or logout), so there's no stack
+        // to pop. The "I already have an account" link below covers the
+        // path to /login.
       ),
       body: SafeArea(
         child: SingleChildScrollView(
