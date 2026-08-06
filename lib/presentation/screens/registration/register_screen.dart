@@ -179,17 +179,17 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 TextFormField(
                   controller: _nicknameController,
                   textCapitalization: TextCapitalization.words,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: context.strings['register.field.nickname'],
                     hintText: 'How should we greet you?',
-                    prefixIcon: Icon(Icons.person_rounded),
+                    prefixIcon: const Icon(Icons.person_rounded),
                   ),
                 ),
                 const SizedBox(height: AppSpacing.l),
                 TextFormField(
                   controller: _phoneController,
                   keyboardType: TextInputType.phone,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: context.strings['register.field.phone'],
                     hintText: 'Used to reach you if your ID is lost',
                     prefixIcon: Icon(Icons.phone_rounded),
