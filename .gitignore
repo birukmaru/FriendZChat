@@ -1,0 +1,116 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Visual Studio Code related
+.classpath
+.project
+.settings/
+.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+pubspec.lock
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+/android/.gradle/
+/android/local.properties
+/android/**/GeneratedPluginRegistrant.java
+/android/**/GeneratedPluginRegistrant.kt
+/android/key.properties
+*.jks
+
+# iOS
+/ios/Pods/
+/ios/.symlinks/
+/ios/Flutter/Flutter.framework
+/ios/Flutter/Flutter.podspec
+/ios/Flutter/flutter_export_environment.sh
+/ios/Flutter/Generated.xcconfig
+/ios/Flutter/ephemeral/
+/ios/ServiceDefinitions.json
+/ios/Runner/GeneratedPluginRegistrant.*
+ios-deploy.framework
+ios-deploy
+*.mode1v3
+*.mode2v3
+*.moved-aside
+*.pbxuser
+*.perspectivev3
+**/*.sync~
+
+# macOS
+/macos/Flutter/ephemeral/
+/macacos/Pods/
+/macos/Flutter/Generated.xcconfig
+/macos/Flutter/flutter_export_environment.sh
+
+# Windows
+/windows/flutter/generated_plugin_registrant.cc
+/windows/flutter/generated_plugin_registrant.h
+/windows/flutter/generated_plugins.cmake
+
+# Linux
+/linux/flutter/generated_plugin_registrant.cc
+/linux/flutter/generated_plugin_registrant.h
+/linux/flutter/generated_plugins.cmake
+
+# Coverage
+/coverage/
+
+# Environment
+.env
+.env.local
+*.env
+secrets.properties
+
+# IDE
+.fleet/
+.fleet_marker/
+
+# Logs
+/logs/
+*.log
+
+# Stray screenshots / debug artifacts at repo root
+/launch_check.png
+/now.png
+/now2.png
+/*.bak
+
+# OS noise
+Thumbs.db
+ehthumbs.db
+Desktop.ini

@@ -1,0 +1,8 @@
+#
+# Android signing configuration.  Copy this file to `key.properties`
+# (git-ignored) and fill in real credentials before producing a release.
+#
+storePassword=CHANGEME
+keyPassword=CHANGEME
+keyAlias=CHANGEME
+storeFile=/absolute/path/to/private-call.jks

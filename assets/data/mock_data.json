@@ -1,0 +1,78 @@
+{
+  "users": [
+    {
+      "id": "123456",
+      "nickname": "Ada Lovelace",
+      "phoneNumber": "+14155552671",
+      "bio": "Mathematician, founder of programming."
+    },
+    {
+      "id": "987654",
+      "nickname": "Grace Hopper",
+      "phoneNumber": "+12025550148",
+      "bio": "Compiler queen."
+    }
+  ],
+  "contacts": [
+    {
+      "id": "c-1",
+      "userId": "111111",
+      "name": "Alice Anders",
+      "phoneNumber": "+14155550101",
+      "isFavorite": true,
+      "addedAt": "2026-08-01T12:30:00Z"
+    },
+    {
+      "id": "c-2",
+      "userId": "222222",
+      "name": "Bob Brown",
+      "phoneNumber": "+14155550102",
+      "isFavorite": false,
+      "addedAt": "2026-08-02T09:15:00Z"
+    },
+    {
+      "id": "c-3",
+      "userId": "333333",
+      "name": "Carmen Cruz",
+      "phoneNumber": "+14155550103",
+      "isFavorite": true,
+      "addedAt": "2026-08-02T14:45:00Z"
+    }
+  ],
+  "history": [
+    {
+      "id": "h-1",
+      "remoteUserId": "111111",
+      "remoteName": "Alice Anders",
+      "startedAt": "2026-08-03T08:10:00Z",
+      "direction": "outgoing",
+      "duration": "00:01:42",
+      "status": "completed"
+    },
+    {
+      "id": "h-2",
+      "remoteUserId": "222222",
+      "remoteName": "Bob Brown",
+      "startedAt": "2026-08-02T18:30:00Z",
+      "direction": "incoming",
+      "duration": "00:00:18",
+      "status": "missed"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "n-1",
+      "title": "Welcome to Private Call",
+      "body": "Your registration is complete. You can now share your ID.",
+      "kind": "tip",
+      "createdAt": "2026-08-01T09:00:00Z"
+    },
+    {
+      "id": "n-2",
+      "title": "Tip: Save your favourite contacts",
+      "body": "Tap the star icon to keep your most-used contacts close.",
+      "kind": "tip",
+      "createdAt": "2026-08-02T09:00:00Z"
+    }
+  ]
+}
