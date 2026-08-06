@@ -98,7 +98,7 @@ flutter:
     - assets/data/
 
 flutter_native_splash:
-  color: "#0F172A"
+  color: "#0E7C7B"
   image: assets/images/splash_logo.png
-  color_dark: "#020617"
+  color_dark: "#0F172A"
   image_dark: assets/images/splash_logo.png

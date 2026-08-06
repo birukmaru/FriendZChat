@@ -1,13 +1,15 @@
-/// Splash screen — premium cinematic intro.
+/// Splash screen — premium cinematic intro using the brand logo SVG.
 library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:friendzchat/core/constants/app_constants.dart';
 import 'package:friendzchat/core/router/app_routes.dart';
+import 'package:friendzchat/core/strings/strings.dart';
 import 'package:friendzchat/presentation/providers/auth_provider.dart';
 import 'package:friendzchat/presentation/providers/prefs_provider.dart';
 import 'package:friendzchat/theme/app_colors.dart';
@@ -71,16 +73,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  // Brand logo (SVG) with a halo shadow.
                   Container(
                     width: 132,
                     height: 132,
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [Color(0xFF6366F1), Color(0xFF0E7C7B)],
-                      ),
-                      shape: BoxShape.circle,
+                      borderRadius: BorderRadius.circular(30),
                       boxShadow: [
                         BoxShadow(
                           color: const Color(0xFF6366F1)
@@ -90,11 +88,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                         ),
                       ],
                     ),
-                    alignment: Alignment.center,
-                    child: const Icon(
-                      Icons.shield_rounded,
-                      size: 64,
-                      color: Colors.white,
+                    clipBehavior: Clip.antiAlias,
+                    child: SvgPicture.asset(
+                      'assets/images/icons/ic_logo.svg',
+                      fit: BoxFit.cover,
                     ),
                   )
                       .animate()
@@ -121,7 +118,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                       .slideY(begin: 0.2, end: 0),
                   const SizedBox(height: AppSpacing.s),
                   Text(
-                    AppConstants.tagline,
+                    context.strings['splash.tagline'],
                     style: theme.textTheme.titleSmall?.copyWith(
                       color: Colors.white.withValues(alpha: 0.75),
                       letterSpacing: 0.5,
