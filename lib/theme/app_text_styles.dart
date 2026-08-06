@@ -29,16 +29,23 @@ abstract final class AppTextStyles {
   AppTextStyles._();
 
   static TextTheme? _cached;
+  static TextTheme? _cachedAmharic;
 
   /// Call once at app start. Subsequent calls are no-ops.
   static void init() {
-    _cached ??= _buildTextTheme();
+    _cached ??= _buildTextTheme(interFont: 'Inter');
+    _cachedAmharic ??= _buildTextTheme(interFont: 'Noto Sans Ethiopic');
   }
 
   /// Resolved text theme — falls back to a fresh build if [init] was skipped.
-  static TextTheme get textTheme => _cached ??= _buildTextTheme();
+  static TextTheme get textTheme => _cached ??= _buildTextTheme(interFont: 'Inter');
 
-  static TextTheme _buildTextTheme() {
+  /// Amharic text theme — same scale but uses Noto Sans Ethiopic for
+  /// Ge'ez script rendering. Inter handles Latin fallback.
+  static TextTheme get amharicTextTheme =>
+      _cachedAmharic ??= _buildTextTheme(interFont: 'Noto Sans Ethiopic');
+
+  static TextTheme _buildTextTheme({required String interFont}) {
     // GoogleFonts.interTextTheme() schedules a network fetch. If the device
     // is offline (or the font CDN is unreachable), the call returns a fallback
     // theme synchronously, but the network attempt surfaces as an unhandled
@@ -50,92 +57,96 @@ abstract final class AppTextStyles {
       ThemeData.light().textTheme,
     );
 
+    // Apply the chosen display font to all text styles.
+    TextStyle? applyFont(TextStyle? s) =>
+        s == null ? null : s.copyWith(fontFamily: interFont);
+
     return base.copyWith(
-      displayLarge: base.displayLarge?.copyWith(
+      displayLarge: applyFont(base.displayLarge?.copyWith(
         fontSize: 56,
         height: 1.1,
         fontWeight: FontWeight.w700,
         letterSpacing: -1.4,
-      ),
-      displayMedium: base.displayMedium?.copyWith(
+      )),
+      displayMedium: applyFont(base.displayMedium?.copyWith(
         fontSize: 44,
         height: 1.1,
         fontWeight: FontWeight.w700,
         letterSpacing: -1.0,
-      ),
-      displaySmall: base.displaySmall?.copyWith(
+      )),
+      displaySmall: applyFont(base.displaySmall?.copyWith(
         fontSize: 36,
         height: 1.15,
         fontWeight: FontWeight.w700,
         letterSpacing: -0.6,
-      ),
-      headlineLarge: base.headlineLarge?.copyWith(
+      )),
+      headlineLarge: applyFont(base.headlineLarge?.copyWith(
         fontSize: 30,
         height: 1.2,
         fontWeight: FontWeight.w700,
         letterSpacing: -0.5,
-      ),
-      headlineMedium: base.headlineMedium?.copyWith(
+      )),
+      headlineMedium: applyFont(base.headlineMedium?.copyWith(
         fontSize: 24,
         height: 1.25,
         fontWeight: FontWeight.w600,
         letterSpacing: -0.3,
-      ),
-      headlineSmall: base.headlineSmall?.copyWith(
+      )),
+      headlineSmall: applyFont(base.headlineSmall?.copyWith(
         fontSize: 20,
         height: 1.3,
         fontWeight: FontWeight.w600,
         letterSpacing: -0.2,
-      ),
-      titleLarge: base.titleLarge?.copyWith(
+      )),
+      titleLarge: applyFont(base.titleLarge?.copyWith(
         fontSize: 18,
         height: 1.35,
         fontWeight: FontWeight.w600,
-      ),
-      titleMedium: base.titleMedium?.copyWith(
+      )),
+      titleMedium: applyFont(base.titleMedium?.copyWith(
         fontSize: 16,
         height: 1.35,
         fontWeight: FontWeight.w600,
-      ),
-      titleSmall: base.titleSmall?.copyWith(
+      )),
+      titleSmall: applyFont(base.titleSmall?.copyWith(
         fontSize: 14,
         height: 1.4,
         fontWeight: FontWeight.w600,
         letterSpacing: 0.1,
-      ),
-      bodyLarge: base.bodyLarge?.copyWith(
+      )),
+      bodyLarge: applyFont(base.bodyLarge?.copyWith(
         fontSize: 16,
         height: 1.55,
         fontWeight: FontWeight.w400,
-      ),
-      bodyMedium: base.bodyMedium?.copyWith(
+      )),
+      bodyMedium: applyFont(base.bodyMedium?.copyWith(
         fontSize: 14,
         height: 1.5,
         fontWeight: FontWeight.w400,
-      ),
-      bodySmall: base.bodySmall?.copyWith(
+      )),
+      bodySmall: applyFont(base.bodySmall?.copyWith(
         fontSize: 13,
         height: 1.45,
         fontWeight: FontWeight.w400,
-      ),
-      labelLarge: base.labelLarge?.copyWith(
+      )),
+      labelLarge: applyFont(base.labelLarge?.copyWith(
         fontSize: 14,
         height: 1.2,
         fontWeight: FontWeight.w600,
         letterSpacing: 0.3,
-      ),
-      labelMedium: base.labelMedium?.copyWith(
+      )),
+      labelMedium: applyFont(base.labelMedium?.copyWith(
         fontSize: 12,
         height: 1.3,
         fontWeight: FontWeight.w600,
         letterSpacing: 0.4,
-      ),
-      labelSmall: base.labelSmall?.copyWith(
+      )),
+      labelSmall: applyFont(base.labelSmall?.copyWith(
         fontSize: 11,
         height: 1.3,
         fontWeight: FontWeight.w600,
         letterSpacing: 0.5,
-      ),
+      )),
     );
   }
 

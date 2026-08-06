@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:friendzchat/core/router/app_routes.dart';
+import 'package:friendzchat/core/strings/strings.dart';
 import 'package:friendzchat/domain/entities/app_settings.dart';
 import 'package:friendzchat/presentation/providers/auth_provider.dart';
 import 'package:friendzchat/presentation/providers/prefs_provider.dart';
@@ -25,10 +26,9 @@ class SettingsScreen extends ConsumerWidget {
       slivers: [
         SliverToBoxAdapter(
           child: PageHeader(
-            eyebrow: 'Settings',
-            title: 'Preferences',
-            subtitle:
-                'Tailor FriendZChat to match your style and habits.',
+            eyebrow: context.strings['settings.eyebrow'],
+            title: context.strings['settings.title'],
+            subtitle: context.strings['settings.subtitle'],
           ),
         ),
         SliverPadding(
@@ -41,13 +41,13 @@ class SettingsScreen extends ConsumerWidget {
           sliver: SliverList.list(
             children: [
               _Section(
-                title: 'Profile',
+                title: context.strings['settings.section.profile'],
                 children: [
                   _Card(
                     children: [
                       StatTile(
                         icon: Icons.account_circle_rounded,
-                        label: 'View profile',
+                        label: context.strings['settings.profile.view'],
                         subtitle: auth.user?.nickname ?? 'Your account',
                         onTap: () => context.push(AppRoutes.profile),
                       ),
@@ -56,13 +56,14 @@ class SettingsScreen extends ConsumerWidget {
                 ],
               ),
               _Section(
-                title: 'Preferences',
+                title: context.strings['settings.section.preferences'],
                 children: [
                   _Card(
                     children: [
                       _SwitchTile(
                         icon: Icons.dark_mode_rounded,
-                        title: 'Dark mode',
+                        title: context
+                            .strings['settings.preferences.theme.title'],
                         subtitle: _themeLabel(prefs.themeMode),
                         value: prefs.themeMode == AppThemeMode.dark,
                         onChanged: (v) {
@@ -73,8 +74,10 @@ class SettingsScreen extends ConsumerWidget {
                       _Divider(),
                       _SwitchTile(
                         icon: Icons.notifications_rounded,
-                        title: 'Notifications',
-                        subtitle: 'In-app reminders, tips and updates',
+                        title: context.strings[
+                            'settings.preferences.notifications.title'],
+                        subtitle: context.strings[
+                            'settings.preferences.notifications.subtitle'],
                         value: prefs.notificationsEnabled,
                         onChanged: (v) => ref
                             .read(prefsStateProvider.notifier)
@@ -83,7 +86,8 @@ class SettingsScreen extends ConsumerWidget {
                       _Divider(),
                       StatTile(
                         icon: Icons.translate_rounded,
-                        label: 'Language',
+                        label: context
+                            .strings['settings.preferences.language.title'],
                         value: prefs.language.displayName,
                         onTap: () =>
                             context.push(AppRoutes.settingsLanguage),
@@ -93,7 +97,7 @@ class SettingsScreen extends ConsumerWidget {
                 ],
               ),
               _Section(
-                title: 'Support',
+                title: context.strings['settings.section.support'],
                 children: [
                   _Card(
                     children: [
@@ -122,7 +126,7 @@ class SettingsScreen extends ConsumerWidget {
                 ],
               ),
               _Section(
-                title: 'Legal',
+                title: context.strings['settings.section.legal'],
                 children: [
                   _Card(
                     children: [
@@ -156,8 +160,8 @@ class SettingsScreen extends ConsumerWidget {
                 children: [
                   StatTile(
                     icon: Icons.logout_rounded,
-                    label: 'Sign out',
-                    subtitle: 'You\'ll need your ID to sign back in',
+                    label: context.strings['settings.signout'],
+                    subtitle: context.strings['settings.signout.subtitle'],
                     danger: true,
                     onTap: () async {
                       final ok = await showDialog<bool>(

@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:friendzchat/core/constants/app_constants.dart';
 import 'package:friendzchat/core/constants/service_constants.dart';
 import 'package:friendzchat/core/router/app_routes.dart';
+import 'package:friendzchat/core/strings/strings.dart';
 import 'package:friendzchat/presentation/providers/auth_provider.dart';
 import 'package:friendzchat/presentation/widgets/primary_button.dart';
 import 'package:friendzchat/theme/app_dimensions.dart';
@@ -102,7 +103,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'SET UP ACCOUNT',
+                  context.strings['register.eyebrow'].toUpperCase(),
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: theme.colorScheme.primary,
                     letterSpacing: 1.6,
@@ -111,7 +112,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 ),
                 const SizedBox(height: AppSpacing.s),
                 Text(
-                  'Get your ID',
+                  context.strings['register.title'],
                   style: theme.textTheme.headlineLarge?.copyWith(
                     fontWeight: FontWeight.w700,
                     letterSpacing: -0.5,
@@ -119,7 +120,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 ),
                 const SizedBox(height: AppSpacing.s),
                 Text(
-                  'Follow three quick steps to receive your 6-digit FriendZChat ID.',
+                  context.strings['register.subtitle'],
                   style: theme.textTheme.bodyLarge?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                     height: 1.55,
@@ -151,7 +152,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   icon: Icons.badge_rounded,
                 ),
                 const SizedBox(height: AppSpacing.xxl),
-                _SectionLabel('Your 6-digit ID'),
+                _SectionLabel(context.strings['register.section.id']),
                 const SizedBox(height: AppSpacing.s),
                 TextFormField(
                   controller: _idController,
@@ -173,13 +174,13 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   validator: FormValidators.userId(),
                 ),
                 const SizedBox(height: AppSpacing.l),
-                _SectionLabel('Profile (optional)'),
+                _SectionLabel(context.strings['register.section.profile']),
                 const SizedBox(height: AppSpacing.s),
                 TextFormField(
                   controller: _nicknameController,
                   textCapitalization: TextCapitalization.words,
                   decoration: const InputDecoration(
-                    labelText: 'Nickname',
+                    labelText: context.strings['register.field.nickname'],
                     hintText: 'How should we greet you?',
                     prefixIcon: Icon(Icons.person_rounded),
                   ),
@@ -189,7 +190,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   controller: _phoneController,
                   keyboardType: TextInputType.phone,
                   decoration: const InputDecoration(
-                    labelText: 'Phone number',
+                    labelText: context.strings['register.field.phone'],
                     hintText: 'Used to reach you if your ID is lost',
                     prefixIcon: Icon(Icons.phone_rounded),
                   ),
@@ -197,7 +198,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 ),
                 const SizedBox(height: AppSpacing.huge),
                 PrimaryButton(
-                  label: 'Continue',
+                  label: context.strings['register.field.continue'],
                   icon: Icons.check_rounded,
                   busy: state.isLoading,
                   onPressed: state.isLoading ? null : _submit,

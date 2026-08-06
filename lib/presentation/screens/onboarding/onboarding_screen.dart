@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:friendzchat/core/constants/app_constants.dart';
 import 'package:friendzchat/core/router/app_routes.dart';
+import 'package:friendzchat/core/strings/strings.dart';
 import 'package:friendzchat/presentation/providers/prefs_provider.dart';
 import 'package:friendzchat/presentation/widgets/primary_button.dart';
 import 'package:friendzchat/theme/app_colors.dart';
@@ -26,26 +27,23 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   static const List<_OnboardingPage> _pages = [
     _OnboardingPage(
-      eyebrow: 'Welcome',
-      title: 'Speak freely.\nConnect privately.',
-      body:
-          'Reach anyone on our telecom service with a 6-digit ID — no phone numbers shared, ever.',
+      eyebrowKey: 'onboarding.eyebrow.welcome',
+      titleKey: 'onboarding.title.welcome',
+      bodyKey: 'onboarding.body.welcome',
       icon: Icons.shield_moon_rounded,
       gradient: [Color(0xFF6366F1), Color(0xFF0E7C7B)],
     ),
     _OnboardingPage(
-      eyebrow: 'How it works',
-      title: 'Your number stays yours',
-      body:
-          'Calls route through our dedicated service. The other person never sees your real number — and you never see theirs.',
+      eyebrowKey: 'onboarding.eyebrow.howItWorks',
+      titleKey: 'onboarding.title.howItWorks',
+      bodyKey: 'onboarding.body.howItWorks',
       icon: Icons.hub_rounded,
       gradient: [Color(0xFF0E7C7B), Color(0xFF17BEBB)],
     ),
     _OnboardingPage(
-      eyebrow: 'Get started',
-      title: 'Get your 6-digit ID',
-      body:
-          'Call ${AppConstants.serviceShortCode}, follow the prompts, then text OK to ${AppConstants.serviceShortCode}. You\'ll receive your ID instantly.',
+      eyebrowKey: 'onboarding.eyebrow.getStarted',
+      titleKey: 'onboarding.title.getStarted',
+      bodyKey: 'onboarding.body.getStarted',
       icon: Icons.badge_rounded,
       gradient: [Color(0xFF8B5CF6), Color(0xFFEC4899)],
     ),
@@ -99,7 +97,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     style: TextButton.styleFrom(
                       foregroundColor: theme.colorScheme.onSurfaceVariant,
                     ),
-                    child: const Text('Skip'),
+                    child: Text(context.strings['onboarding.skip']),
                   ),
                 ],
               ),
@@ -118,7 +116,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.l),
               child: PrimaryButton(
-                label: last ? 'Get started' : 'Continue',
+                label: last
+                    ? context.strings['onboarding.getStarted']
+                    : context.strings['onboarding.continue'],
                 icon: last ? Icons.arrow_forward_rounded : null,
                 onPressed: _next,
               ),
@@ -133,15 +133,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
 class _OnboardingPage {
   const _OnboardingPage({
-    required this.eyebrow,
-    required this.title,
-    required this.body,
+    required this.eyebrowKey,
+    required this.titleKey,
+    required this.bodyKey,
     required this.icon,
     required this.gradient,
   });
-  final String eyebrow;
-  final String title;
-  final String body;
+  final String eyebrowKey;
+  final String titleKey;
+  final String bodyKey;
   final IconData icon;
   final List<Color> gradient;
 }
@@ -191,7 +191,7 @@ class _OnboardingPageView extends StatelessWidget {
               ),
           const SizedBox(height: AppSpacing.huge),
           Text(
-            page.eyebrow.toUpperCase(),
+            context.strings[page.eyebrowKey].toUpperCase(),
             style: theme.textTheme.labelSmall?.copyWith(
               color: page.gradient.first,
               letterSpacing: 1.6,
@@ -200,7 +200,7 @@ class _OnboardingPageView extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.s),
           Text(
-            page.title,
+            context.strings[page.titleKey],
             textAlign: TextAlign.center,
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.w700,
@@ -210,7 +210,7 @@ class _OnboardingPageView extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.m),
           Text(
-            page.body,
+            context.strings[page.bodyKey],
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyLarge?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,

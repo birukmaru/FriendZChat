@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:friendzchat/core/strings/strings.dart';
 import 'package:friendzchat/domain/entities/app_settings.dart';
 import 'package:friendzchat/presentation/providers/prefs_provider.dart';
 import 'package:friendzchat/theme/app_dimensions.dart';
@@ -43,7 +44,7 @@ class SettingsLanguageScreen extends ConsumerWidget {
             ),
             const SizedBox(height: AppSpacing.s),
             Text(
-              'Language',
+              context.strings['settings.preferences.language.title'],
               style: theme.textTheme.headlineLarge?.copyWith(
                 fontWeight: FontWeight.w700,
                 letterSpacing: -0.5,
@@ -51,7 +52,7 @@ class SettingsLanguageScreen extends ConsumerWidget {
             ),
             const SizedBox(height: AppSpacing.s),
             Text(
-              'Pick the language FriendZChat will use.',
+              context.strings['settings.preferences.language.subtitle'],
               style: theme.textTheme.bodyLarge?.copyWith(
                 color: scheme.onSurfaceVariant,
                 height: 1.55,

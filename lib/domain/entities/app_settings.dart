@@ -6,23 +6,17 @@ import 'package:flutter/material.dart';
 
 enum AppThemeMode { system, light, dark }
 
-enum AppLanguage { english, spanish, french, german, arabic }
+enum AppLanguage { english, amharic }
 
 extension AppLanguageX on AppLanguage {
   String get code => switch (this) {
         AppLanguage.english => 'en',
-        AppLanguage.spanish => 'es',
-        AppLanguage.french => 'fr',
-        AppLanguage.german => 'de',
-        AppLanguage.arabic => 'ar',
+        AppLanguage.amharic => 'am',
       };
 
   String get displayName => switch (this) {
         AppLanguage.english => 'English',
-        AppLanguage.spanish => 'Español',
-        AppLanguage.french => 'Français',
-        AppLanguage.german => 'Deutsch',
-        AppLanguage.arabic => 'العربية',
+        AppLanguage.amharic => 'አማርኛ',
       };
 
   Locale get locale => Locale(code);

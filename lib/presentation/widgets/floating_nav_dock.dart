@@ -11,6 +11,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import 'package:friendzchat/core/strings/strings.dart';
 import 'package:friendzchat/theme/app_dimensions.dart';
 
 /// A single nav slot in the [FloatingNavDock].
@@ -153,7 +154,7 @@ class _DockItem extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               Text(
-                slot.label,
+                context.strings[slot.label],
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: color,
                   fontWeight:

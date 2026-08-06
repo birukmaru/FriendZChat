@@ -47,22 +47,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     NavSlot(
       icon: Icons.home_outlined,
       selectedIcon: Icons.home_rounded,
-      label: 'Home',
+      label: 'nav.home',
     ),
     NavSlot(
       icon: Icons.people_outline,
       selectedIcon: Icons.people_rounded,
-      label: 'Contacts',
+      label: 'nav.contacts',
     ),
     NavSlot(
       icon: Icons.history_rounded,
       selectedIcon: Icons.history_rounded,
-      label: 'History',
+      label: 'nav.history',
     ),
     NavSlot(
       icon: Icons.settings_outlined,
       selectedIcon: Icons.settings_rounded,
-      label: 'Settings',
+      label: 'nav.settings',
     ),
   ];
 
